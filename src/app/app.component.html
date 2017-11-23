@@ -2,14 +2,12 @@
 <div style="text-align:center">
   <h1>Welcome to {{title}}!</h1>
   <h1>Time : {{time}}
-
-  <h1>Ticks : {{ticks}}</h1>
   <div class="container">
-    <button *ngIf="!this.reset" (click)="startTimer()" type="button" class="btn btn-info">Start</button>
-    <button (click)="resetTimer()" type="button" class="btn btn-info">Reset</button>
-    <button (click)="stopTimer()" type="button" class="btn btn-info">Stop</button>
-    <button (click)="continueTimer()" type="button" class="btn btn-info">Continue</button>
-    <button type="button" class="btn btn-info" id="wait">Wait</button>
+    <button [ngClass]="{'hideBtn': start_timer}" (click)="startTimer()" type="button" class="btn btn-info">Start</button>
+    <button [ngClass]="{'hideBtn': !start_timer}" (click)="stopTimer()" type="button" class="btn btn-info">Stop</button>
+    <button [ngClass]="{'hideBtn': !start_timer}" (click)="resetTimer()" type="button" class="btn btn-info">Reset</button>
+    <button *ngIf="stopHandler" (click)="continueTimer()" type="button" class="btn btn-info">Continue</button>
+    <button [ngClass]="{'hideBtn': !start_timer}" type="button" class="btn btn-info" id="wait">Wait</button>
 
 </div>
   </h1>

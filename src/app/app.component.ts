@@ -13,44 +13,36 @@ export class AppComponent implements OnInit, OnDestroy {
    constructor(){
 
    }
-  stop : boolean = false;
+  stop        : boolean = false;
   title       : string = 'TIMER';
   ticks       : any = 0;
-
   click       : number = 0;
-
-  time        : any;
-  reset       : boolean = false;
+  time        : string;
+  start_timer : boolean = false;
   stopHandler : boolean = false;
   start       : number;
   ms          : number = 300;
   hh          : any;
   mm          : any;
   ss          : any;
-
   stop_time   : any;
 
-  example :any;
+
+
 
     private timer;
     private sub: Subscription;
 
   startTimer(){
 
-
       if(!this.stopHandler){
-
-        this.ms = Date.now() - this.start;
-           if(this.ms >= 300){
-               this.timerFunc();
-               console.log('this.ms >= 300');
-           }
+        this.start_timer = true;
+        this.timerFunc();
         }
         else
         {
-            this.timerFunc();
+        return;
       }
-
 }
 
 timerFunc() {
@@ -59,12 +51,11 @@ timerFunc() {
 
   if(this.stopHandler){
     this.stopHandler = false;
-   this.sub = this.timer.subscribe(t =>{
+   this.sub = this.timer.subscribe(t => {
      t = t + this.stop_time;
-     console.log(t);
      this.formaToUTC(t)
    });
-  }else{
+  } else {
    this.sub = this.timer.subscribe(t =>this.formaToUTC(t));
 }
 }
@@ -85,52 +76,46 @@ timerFunc() {
   }
 
   stopTimer(){
-
+       this.click = 0;
        console.log(this.ticks);
        this.stop_time = this.ticks;
 
        this.stopHandler = true;
        this.start = Date.now();
        this.sub.unsubscribe();
-       console.log('stopTimer');
-       console.log(this.stopHandler);
-       console.log(this.start);
+
   }
 
   resetTimer(){
-      console.log('resetTimer');
       this.sub.unsubscribe();
       this.ticks = 0;
       this.time = "00:00:00";
-      console.log(this.stopHandler);
   }
 
   continueTimer() {
-    console.log('continueTimer');
     this.ticks = this.stop_time;
-    console.log(this.ticks);
     this.timerFunc()
   }
 
 
 
-  ngOnInit(){
-    this.start = Date.now();
-
+  ngOnInit() {
+    let startWait;
     const node = document.getElementById('wait');
-
-    this.example = Observable
+    let waitClick = Observable
       .fromEvent(node, 'click')
-
-    .debounceTime(300)
-    .subscribe(() => {
-      this.click++;
-      this.formaToUTC(this.click);
-      console.log(this.click);
-    });
-
-   }
-
+      .subscribe(() => {
+        this.click++;
+        startWait = Date.now();
+         if(this.click = 2) {
+           let rangeWait = Date.now() - startWait;
+             if(rangeWait <= 300){
+               this.stopTimer();
+           }
+        }
+        this.continueTimer();
+      })
+ }
   ngOnDestroy(){
         console.log("Destroy timer");
         this.sub.unsubscribe();
