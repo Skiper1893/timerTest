@@ -3,7 +3,7 @@
   <h1>Welcome to {{title}}!</h1>
   <h1>Time : {{time}}
   <div class="container">
-    <button [ngClass]="{'hideBtn': start_timer}" (click)="startTimer()" type="button" class="btn btn-info">Start</button>
+    <button [ngClass]="{'hideBtn': ticks }" (click)="startTimer()" type="button" class="btn btn-info">Start</button>
     <button [ngClass]="{'hideBtn': !start_timer}" (click)="stopTimer()" type="button" class="btn btn-info">Stop</button>
     <button [ngClass]="{'hideBtn': !start_timer}" (click)="resetTimer()" type="button" class="btn btn-info">Reset</button>
     <button *ngIf="stopHandler" (click)="continueTimer()" type="button" class="btn btn-info">Continue</button>

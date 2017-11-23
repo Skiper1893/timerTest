@@ -13,14 +13,12 @@ export class AppComponent implements OnInit, OnDestroy {
    constructor(){
 
    }
-  stop        : boolean = false;
   title       : string = 'TIMER';
   ticks       : any = 0;
   click       : number = 0;
   time        : string;
   start_timer : boolean = false;
   stopHandler : boolean = false;
-  start       : number;
   ms          : number = 300;
   hh          : any;
   mm          : any;
@@ -29,18 +27,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
 
-
     private timer;
     private sub: Subscription;
 
   startTimer(){
-
       if(!this.stopHandler){
         this.start_timer = true;
         this.timerFunc();
-        }
-        else
-        {
+        }else{
         return;
       }
 }
@@ -77,13 +71,9 @@ timerFunc() {
 
   stopTimer(){
        this.click = 0;
-       console.log(this.ticks);
        this.stop_time = this.ticks;
-
        this.stopHandler = true;
-       this.start = Date.now();
        this.sub.unsubscribe();
-
   }
 
   resetTimer(){
